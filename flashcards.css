@@ -65,3 +65,15 @@ body {
   border-color: rgb(118, 116, 116);
   transition: all 0.4s;
 }
+.title {
+  height: 22px;
+  width: 76px;
+  border-radius: 43px;
+  text-align: center;
+}
+.green-color {
+  background-color: #31bf31;
+}
+.blue-color {
+  background-color: rgb(40 152 226);
+}
