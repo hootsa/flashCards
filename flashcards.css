@@ -9,7 +9,7 @@ body {
 .inner-container {
   max-width: 700px;
   margin: auto;
-  padding: 20px;
+  padding: 5px;
   height: 100%;
 }
 .entire-border {
@@ -17,10 +17,9 @@ body {
   background-color: #ffffff;
   border-radius: 9px;
   box-shadow: 0px 0px 10px 10px rgb(188 182 182 / 50%);
-  position: relative;
   margin: auto;
-  top: 198px;
   cursor: pointer;
+  margin-top: 115px;
 }
 .star {
   padding: 3px;
@@ -76,4 +75,52 @@ body {
 }
 .blue-color {
   background-color: rgb(40 152 226);
+}
+.button-container {
+  border-top: 2px solid silver;
+  margin-top: 77px;
+}
+.input-wraper {
+  margin-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 65px;
+}
+.input {
+  height: 155px;
+  width: 303px;
+  font-size: 18px;
+  padding-left: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 3px solid #aca9a9;
+}
+
+.blue {
+  border-color: rgb(40 152 226);
+}
+.blue:hover {
+  border-color: rgb(12, 63, 130);
+  transition: all 0.4s;
+}
+.green {
+  border-color: #31bf31;
+}
+.green:hover {
+  border-color: rgb(7, 79, 7);
+  transition: all 0.4s;
+}
+
+.submit-btn {
+  background: white;
+  font-size: 28px;
+  padding: 11px 29px;
+  border-radius: 5px;
+  border: 2px solid;
+  margin: 0 auto;
+  display: block;
+  cursor: pointer;
+}
+.submit-btn:hover {
+  background-color: aliceblue;
 }
