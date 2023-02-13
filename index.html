@@ -24,28 +24,34 @@
             <h3>what is one right or freedom from the first amendment?</h3>
           </div>
           <div class="button-btn">
-            <button class="btn" id="previousBtn"><</button>
-            <button class="btn" id="nextBtn">></button>
+            <button class="btn fullwidth" id="previousBtn"><</button>
+            <button class="btn fullwidth" id="nextBtn">></button>
           </div>
         </div>
 
         <div class="button-container inner-container">
+          <div class="cards-title">
+            <h3 class="title2">Add your question into cards:</h3>
+          </div>
           <div class="input-wraper">
-            <input
-              type="text"
-              class="input blue"
-              placeholder="Please type your question here..."
+            <textarea
+              name="question-part"
               id="questionInput"
-            />
-            <input
-              type="text"
+              cols="30"
+              rows="10"
+              placeholder="Please type your question here..."
+              class="input blue"
+            ></textarea>
+
+            <textarea
+              name="answer-input"
+              id="answerInput"
               class="input green"
               placeholder="Please type your answer here..."
-              id="answerInput"
-            />
+            ></textarea>
           </div>
           <div>
-            <button class="submit-btn">Submit</button>
+            <button class="submit-btn" id="submitBtn">Submit</button>
           </div>
         </div>
       </div>

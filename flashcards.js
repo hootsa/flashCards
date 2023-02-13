@@ -26,7 +26,12 @@ const previousBtnElement = GetElement("previousBtn");
 const nextBtnElement = GetElement("nextBtn");
 const titleElement = GetElement("title");
 const quantitiesEl = GetElement("quantities");
+const questionInputEl = GetElement("questionInput");
+const answerInputEl = GetElement("answerInput");
+const submitBtnEl = GetElement("submitBtn");
+console.log(submitBtnEl);
 titleElement.classList.add("blue-color");
+
 //Deafult page load
 
 let isQuestion = true;
@@ -37,6 +42,7 @@ printData();
 displayElement.addEventListener("click", flip);
 nextBtnElement.addEventListener("click", next);
 previousBtnElement.addEventListener("click", previous);
+submitBtnEl.addEventListener("click", submit);
 
 function flip() {
   if (isQuestion) {
@@ -77,4 +83,28 @@ function printData() {
   }
 
   quantitiesEl.innerHTML = currentIdx + 1 + "/" + questions.length;
+}
+
+function submit() {
+  const questionInputValue = questionInputEl.value;
+  const answerInputValue = answerInputEl.value;
+  for (let i = 0; i < questions.length; i++) {
+    const questionsItem = questions[i];
+    if (questionsItem === questionInputValue) {
+      return;
+    }
+  }
+  if (!!questionInputValue && !!answerInputValue) {
+    questions.push(questionInputValue);
+    answers.push(answerInputValue);
+  }
+
+  console.log(questions, "mmmmm", questionInputValue);
+  printData();
+  clearInputs();
+}
+
+function clearInputs() {
+  questionInputEl.value = "";
+  answerInputEl.value = "";
 }
