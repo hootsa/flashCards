@@ -1,17 +1,40 @@
-let questions = [
-  "What is the supreme law of the land?",
-  "What does the Constitution do?",
-  "What are the first three words of the Constitution?",
-  "What is an amendment?",
-  "What do we call the first ten amendments to the Constitution?",
+let data = [
+  {
+    question: "What is the supreme law of the land?",
+    answer: "The Constitution",
+  },
+  {
+    question: "What does the Constitution do?",
+    answer: "Protects the basic rights of Americans",
+  },
+  {
+    question: "What are the first three words of the Constitution?",
+    answer: "We The People",
+  },
+  {
+    question: "What is an amendment?",
+    answer: "a change/addition (to the constitution)",
+  },
+  {
+    question: "What do we call the first ten amendments to the Constitution?",
+    answer: "The Bill of Rights",
+  },
 ];
-let answers = [
-  "The Constitution",
-  "Protects the basic rights of Americans",
-  "We The People",
-  "a change/addition (to the constitution)",
-  "The Bill of Rights",
-];
+
+// let questions = [
+//   "What is the supreme law of the land?",
+//   "What does the Constitution do?",
+//   "What are the first three words of the Constitution?",
+//   "What is an amendment?",
+//   "What do we call the first ten amendments to the Constitution?",
+// ];
+// let answers = [
+//   "The Constitution",
+//   "Protects the basic rights of Americans",
+//   "We The People",
+//   "a change/addition (to the constitution)",
+//   "The Bill of Rights",
+// ];
 
 //get elements
 
@@ -39,7 +62,7 @@ let currentIdx = 0;
 printData();
 
 // Add eventListener
-displayElement.addEventListener("click", flip);
+entireBorderElement.addEventListener("click", flip);
 nextBtnElement.addEventListener("click", next);
 previousBtnElement.addEventListener("click", previous);
 submitBtnEl.addEventListener("click", submit);
@@ -54,15 +77,17 @@ function flip() {
   }
 }
 
-function next() {
-  if (currentIdx >= questions.length - 1) {
+function next(event) {
+  event.stopPropagation();
+  if (currentIdx >= data.length - 1) {
     return;
   }
   currentIdx++;
   printData();
 }
 
-function previous() {
+function previous(e) {
+  e.stopPropagation();
   if (currentIdx === 0) {
     return;
   }
@@ -71,35 +96,45 @@ function previous() {
 }
 
 function printData() {
+  let eachObjItem = data[currentIdx];
   if (isQuestion) {
-    displayElement.innerHTML = questions[currentIdx];
+    displayElement.innerHTML = eachObjItem.question;
     titleElement.innerHTML = "Question";
     titleElement.classList.add("blue-color");
   } else {
-    displayElement.innerHTML = answers[currentIdx];
+    displayElement.innerHTML = eachObjItem.answer;
     titleElement.innerHTML = "Answer";
     titleElement.classList.remove("blue-color");
     titleElement.classList.add("green-color");
   }
 
-  quantitiesEl.innerHTML = currentIdx + 1 + "/" + questions.length;
+  quantitiesEl.innerHTML = currentIdx + 1 + "/" + data.length;
 }
 
 function submit() {
   const questionInputValue = questionInputEl.value;
   const answerInputValue = answerInputEl.value;
-  for (let i = 0; i < questions.length; i++) {
-    const questionsItem = questions[i];
-    if (questionsItem === questionInputValue) {
-      return;
+
+  //   for (let i = 0; i < data.length; i++) {
+  //     const eachObj = data[i];
+  //     const questionA = eachObj.question;
+  //     if (questionA === questionInputValue) {
+  //       return;
+  //     }
+  //   }
+
+  const hasInputValue = data.some((itemObj) => {
+    if (questionInputValue === itemObj.question) {
+      return true;
     }
-  }
-  if (!!questionInputValue && !!answerInputValue) {
-    questions.push(questionInputValue);
-    answers.push(answerInputValue);
+    return false;
+  });
+
+  if (!!questionInputValue && !!answerInputValue && !hasInputValue) {
+    const newData = { answer: answerInputValue, question: questionInputValue };
+    data.push(newData);
   }
 
-  console.log(questions, "mmmmm", questionInputValue);
   printData();
   clearInputs();
 }
