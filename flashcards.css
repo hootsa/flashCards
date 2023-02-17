@@ -32,7 +32,7 @@ body {
   align-items: center;
 }
 .star:hover {
-  background-color: #d5d5d5;
+  background-color: #c00e0e;
   transition: all 0.4s;
 }
 .border-header {
@@ -134,4 +134,9 @@ body {
 .submit-btn:hover {
   background-color: aliceblue;
   transition: all 0.4s;
+}
+i.fa-regular.fa-trash-can {
+  color: red;
+  font-size: 21px;
+  cursor: pointer;
 }

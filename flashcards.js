@@ -12,7 +12,6 @@ let data = storageData
     ];
 
 //get elements
-
 function GetElement(idName) {
   const element = document.getElementById(idName);
   return element;
@@ -21,6 +20,13 @@ function GetElement(idName) {
 //Deafult page load
 let isQuestion = true;
 let currentIdx = 0;
+let defaultCard = [
+  {
+    question: "How this flashcard work?",
+    answer:
+      "You can type your question in the question box and add your answer in the answer section then submit them into flashcard. ",
+  },
+];
 
 const entireBorderElement = GetElement("entireBorder");
 const displayElement = GetElement("display");
@@ -32,6 +38,7 @@ const questionInputEl = GetElement("questionInput");
 const answerInputEl = GetElement("answerInput");
 const submitBtnEl = GetElement("submitBtn");
 titleElement.classList.add("blue-color");
+const trashBtnElement = GetElement("trashBtn");
 
 printData();
 
@@ -40,6 +47,23 @@ entireBorderElement.addEventListener("click", flip);
 nextBtnElement.addEventListener("click", next);
 previousBtnElement.addEventListener("click", previous);
 submitBtnEl.addEventListener("click", submit);
+
+trashBtnElement.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const newData = deletCard(data, currentIdx);
+
+  data = newData;
+
+  if (currentIdx === 0 && data.length === 0) {
+    data = defaultCard;
+  }
+
+  if (currentIdx === data.length) {
+    currentIdx = data.length - 1;
+  }
+  setLocalData("flashcardData", data);
+  printData();
+});
 
 function flip() {
   if (isQuestion) {
@@ -52,6 +76,7 @@ function flip() {
 }
 
 function next(event) {
+  // for stop click event to its parent
   event.stopPropagation();
   if (currentIdx >= data.length - 1) {
     return;
@@ -70,14 +95,13 @@ function previous(e) {
 }
 
 function printData() {
-  let eachObj = data[currentIdx];
-
+  let currentItemObj = data[currentIdx];
   if (isQuestion) {
-    displayElement.innerHTML = eachObj.question;
+    displayElement.innerHTML = currentItemObj.question;
     titleElement.innerHTML = "Question";
     titleElement.classList.add("blue-color");
   } else {
-    displayElement.innerHTML = eachObj.answer;
+    displayElement.innerHTML = currentItemObj.answer;
     titleElement.innerHTML = "Answer";
     titleElement.classList.remove("blue-color");
     titleElement.classList.add("green-color");
@@ -102,7 +126,7 @@ function submit() {
     data.push(newData);
   }
 
-  localStorage.setItem("flashcardData", JSON.stringify(data));
+  setLocalData("flashcardData", data);
 
   printData();
   clearInputs();
@@ -111,4 +135,19 @@ function submit() {
 function clearInputs() {
   questionInputEl.value = "";
   answerInputEl.value = "";
+}
+
+function deletCard(arr, index) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (index !== i) {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+
+function setLocalData(keyName, jsData) {
+  const strConvert = JSON.stringify(jsData);
+  localStorage.setItem(keyName, strConvert);
 }
